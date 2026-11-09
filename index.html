@@ -29,7 +29,7 @@ body{font-family:var(--font);background:var(--paper);color:var(--ink);line-heigh
 .banner h1{margin:0;font-size:1.6rem;font-weight:800;letter-spacing:-.02em;line-height:1.1}
 .banner p{margin:3px 0 0;color:var(--onNavyMuted);font-size:.92rem}
 .proto{background:var(--lime);color:var(--navy);font-size:.78rem;font-weight:700;text-align:center;padding:6px 16px}
-.layout{display:grid;grid-template-columns:300px minmax(0,1fr);gap:24px;padding:24px 32px 40px;max-width:1400px;margin:0 auto;align-items:start}
+.layout{display:grid;grid-template-columns:340px minmax(0,820px);justify-content:center;gap:28px;padding:24px 32px 40px;max-width:1280px;margin:0 auto;align-items:start}
 .params{position:sticky;top:16px;background:var(--card);border:1px solid var(--line);border-top:4px solid var(--lime);border-radius:14px;padding:16px 18px}
 .params h2{margin:0 0 12px;font-size:1rem;font-weight:800}
 .p{margin-bottom:16px}
@@ -68,7 +68,10 @@ body{font-family:var(--font);background:var(--paper);color:var(--ink);line-heigh
 .src{font-size:.7rem;color:var(--onNavyMuted);margin:6px 0 0}
 .src b{color:var(--onNavy);font-weight:700}
 .tt{position:fixed;pointer-events:none;background:#fff;color:var(--navy);border-radius:8px;padding:8px 10px;font-size:.78rem;box-shadow:0 6px 20px rgba(0,0,0,.25);display:none;z-index:9;line-height:1.45}
-@media (max-width:900px){.layout{grid-template-columns:1fr;padding:16px}.params{position:static}.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}.banner{padding:16px}}
+@media (max-width:900px){.layout{grid-template-columns:1fr;padding:16px}.params{position:static}.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}
+.banner{padding:16px;display:grid;grid-template-columns:auto 1fr;column-gap:14px;row-gap:8px;align-items:center}
+.banner .rule{display:none}.banner>div:not(.rule){display:contents}.wm-img{height:40px}.banner h1{font-size:1.3rem}.banner p{grid-column:1/-1;margin:0}
+.panel{display:flex;flex-direction:column}.ph{display:contents}.panel h3{order:1}.panel .sub{order:2}.vseg{order:3;align-self:flex-start;margin-top:10px}.panel .chart,.panel .src{order:4}}
 </style>
 </head>
 <body>
