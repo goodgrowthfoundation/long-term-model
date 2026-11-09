@@ -37,7 +37,7 @@ main{padding:24px 36px 40px;max-width:900px;width:100%;justify-self:center}
 .p .top{display:flex;justify-content:space-between;align-items:center;gap:8px}
 .p label{font-size:.82rem;font-weight:700}
 .p input[type=number]{width:96px;font:inherit;font-size:.9rem;font-weight:800;text-align:right;padding:4px 6px;border:1px solid #444a54;border-radius:6px;background:#1f2328;color:#fff}
-.p input[type=range]{width:100%;margin:6px 0 0;accent-color:var(--orange)}
+.p input[type=range]{width:100%;margin:6px 0 0;accent-color:var(--blue)}
 .seg{display:grid;grid-template-columns:1fr 1fr;gap:4px;background:var(--field);border:1px solid var(--line);border-radius:10px;padding:4px;margin-top:6px}
 .seg button{border:none;background:transparent;border-radius:7px;padding:7px 6px;font:inherit;font-size:.76rem;font-weight:700;line-height:1.25;color:var(--ink);cursor:pointer}
 .seg button[aria-pressed="true"]{background:var(--navy);color:#fff}
@@ -57,7 +57,7 @@ main{padding:24px 36px 40px;max-width:900px;width:100%;justify-self:center}
 .params .hint{color:#aab1bc}
 .params .sw input{background:#444a54}
 .params .sw input:checked{background:#16191d}
-.params .sw input:checked::after{background:var(--orange)}
+.params .sw input:checked::after{background:var(--pale)}
 #gate{position:fixed;inset:0;z-index:50;background:var(--navy);display:flex;align-items:center;justify-content:center;padding:24px}
 #gate form{background:#fff;color:var(--navy);border-radius:14px;border-top:4px solid var(--lime);padding:24px;width:100%;max-width:340px;display:flex;flex-direction:column;gap:12px}
 #gate h2{margin:0;font-size:1.2rem;font-weight:800}
@@ -92,7 +92,7 @@ main{padding:24px 36px 40px;max-width:900px;width:100%;justify-self:center}
 .wbar{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:18px}
 .wbar a,.wbtn{display:inline-block;text-decoration:none;font-weight:800;font-size:.86rem;border-radius:9px;padding:9px 14px}
 .wbar a{background:var(--navy);color:#fff}
-.wbtn{margin-top:10px;width:100%;text-align:center;background:var(--orange);color:#1b1e23}
+.wbtn{margin-top:10px;width:100%;text-align:center;background:var(--blue);color:#fff}
 article.paper{background:var(--card);border:1px solid var(--line);border-top:4px solid var(--lime);border-radius:14px;padding:30px 36px;color:var(--ink);line-height:1.65}
 article.paper h1.ptitle{font-size:1.7rem;line-height:1.2;margin:0 0 6px;color:var(--ink);letter-spacing:-.02em}
 article.paper .kicker{font-size:.8rem;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:var(--blue);margin:0 0 18px}
@@ -107,6 +107,10 @@ article.paper section.footnotes{font-size:.8rem;color:var(--muted);border-top:1p
 article.paper hr{display:none}
 .proto a{color:var(--navy);font-weight:800}
 @media (max-width:900px){article.paper{padding:22px 18px}}
+.panel .lede{font-size:.95rem;color:var(--onNavy);margin:8px 0 4px;max-width:70ch;line-height:1.55}
+article.paper a,article.paper .footnotes,article.paper .footnotes li,article.paper .footnotes p{overflow-wrap:anywhere;word-break:break-word}
+article.paper .footnotes{font-size:.8rem;color:var(--muted);border-top:1px solid var(--line);margin-top:30px;padding-top:10px}
+article.paper{overflow:hidden}
 </style>
 </head>
 <body>
@@ -124,7 +128,7 @@ document.getElementById('gf').addEventListener('submit',e=>{e.preventDefault();i
     <p>Extending Distributional Analysis to Account for Employment and Growth Effects</p>
   </div>
 </header>
-<div class="proto">Prototype. Illustrative estimates rather than a full microsimulation. <a href="#writeup">Read the technical write up here</a></div>
+<div class="proto"><a href="#writeup">Read the technical write up here</a></div>
 <div id="modelView"><div class="layout">
 <aside class="params" aria-label="Model parameters">
   <h2>Model parameters</h2>
@@ -148,7 +152,7 @@ document.getElementById('gf').addEventListener('submit',e=>{e.preventDefault();i
   <label class="sw">Some entrants leave work<input id="exits" type="checkbox"></label>
   <div class="p" style="margin-top:16px"><label>Measure of living standards</label>
     <div class="seg seg3" role="group" aria-label="Measure of living standards">
-      <button type="button" data-ls="gdp" aria-pressed="true">GDP per head</button><button type="button" data-ls="nni" aria-pressed="false">Net national income</button><button type="button" data-ls="hdi" aria-pressed="false">Household disposable income</button>
+      <button type="button" data-ls="hdi" aria-pressed="true">Household disposable income</button><button type="button" data-ls="nni" aria-pressed="false">Net national income</button><button type="button" data-ls="gdp" aria-pressed="false">GDP per head</button>
     </div>
     <div class="hint" id="lsh"></div>
   </div>
@@ -156,6 +160,11 @@ document.getElementById('gf').addEventListener('submit',e=>{e.preventDefault();i
   <a class="wbtn" href="#writeup">Read the technical write-up</a>
 </aside>
 <main>
+  <section class="panel intro"><h3>What this model adds</h3>
+    <p class="lede">Standard distributional analysis, as <b>published by government and influential think tanks</b>, shows the first round. It is the cash change on the day a policy starts, with behaviour held fixed. <b>This model adds two further rounds.</b> The second counts the gains for people who move into work, and the third counts the extra output they produce.</p>
+    <div class="chart" id="c0" style="min-height:340px"></div>
+    <p class="src"><b>Notes:</b> The group affected, cumulative over ten years, using the parameters set on the left.</p>
+    <p class="src"><b>Source:</b> GGF calculations using Understanding Society; OBR; ONS.</p></section>
   <div class="kpis" aria-live="polite">
     <div class="kpi"><b id="k1"></b><span>Year the entrant is better off</span></div>
     <div class="kpi lead"><b id="k2"></b><span>Year the group is better off</span></div>
@@ -172,7 +181,7 @@ document.getElementById('gf').addEventListener('submit',e=>{e.preventDefault();i
     <p class="src"><b>Source:</b> GGF calculations using Understanding Society; OBR, Fiscal risks and sustainability, July 2023; ONS, Blue Book 2025.</p></section>
   <section class="panel"><h3>Poverty</h3><div class="sub">Change in people in relative poverty in the group affected against the base, thousands</div>
     <div class="chart" id="c3"></div>
-    <p class="src"><b>Notes:</b> Relative poverty is 60% of median income before housing costs. Growth raises all incomes and the poverty line together, so it leaves relative poverty unchanged.</p>
+    <p class="src"><b>Notes:</b> Relative poverty is 60% of median income before housing costs. The growth effect is not shown, because it raises all incomes and the poverty line by the same proportion and so leaves relative poverty unchanged.</p>
     <p class="src"><b>Source:</b> GGF calculations using Understanding Society; DWP, Households Below Average Income FYE 2025.</p></section>
 </main>
 </div></div>
@@ -185,7 +194,7 @@ document.getElementById('gf').addEventListener('submit',e=>{e.preventDefault();i
 <p>This briefing sets out a way to score the second and third rounds that can be done in a parsimonious way, using public data and official assumptions, and applies it to an illustrative reform for young people out of work losing access to £3,800 a year of benefits, and some end up in work as a result. We find that accounting for return-to-work effects changes the distributional picture for the people affected, and adding the growth effects changes the interpretation for whether society is better or worse off from the change.</p>
 <p>The method is also available as an interactive online model, the <a href="https://claude.ai/artifact/4x6nPkzuBwdYiM8WPPRZtU">Long-term model</a>, which reproduces every result in this paper and lets users test their own assumptions. Section 4 is a guide to using it.</p>
 <h2 id="the-first-round">1.1 The first round</h2>
-<p>The first round is the morning-after figure produced by distributional analysis such as that of the Resolution Foundation and the IFS. It is the change in each household’s cash income on the day a reform takes effect, and it assumes nobody changes what they do.</p>
+<p>The first round is the morning-after figure produced by the distributional analysis of government and influential think tanks. It is the change in each household’s cash income on the day a reform takes effect, and it assumes nobody changes what they do.</p>
 <h2 id="the-second-round-work-effect">1.2 The second round (work effect)</h2>
 <p>The second round adds the gain for people who move into work. We estimate how their pay and employment evolve from Understanding Society, as set out in Box 1, and calculate the gain for an archetype household, a single young adult renting their home, after income tax, National Insurance and the Universal Credit taper. For an individual this gives an income path once in work. For society we add these paths up across everyone affected, allowing for the share who move into work and the share who later leave.</p>
 <table>
@@ -224,13 +233,13 @@ document.getElementById('gf').addEventListener('submit',e=>{e.preventDefault();i
 <p>The model offers three measures of living standards. Each is a reasonable way to value the extra output new workers produce, and they differ only in what they include.</p>
 <ul>
 <li><blockquote>
-<p><strong>GDP per head:</strong> Counts all the extra output new workers produce. It is the broadest measure and the default.</p>
+<p><strong>GDP per head:</strong> Counts all the extra output new workers produce. It is the broadest measure.</p>
 </blockquote></li>
 <li><blockquote>
 <p><strong>Net national income:</strong> Counts the extra output less depreciation, the part that replaces worn-out equipment, and income paid abroad, about 87% of the total. It is the standard step from output to national income.</p>
 </blockquote></li>
 <li><blockquote>
-<p><strong>Household disposable income:</strong> Counts the share of extra output that reaches households after tax, about 60% of the total. It is closest to take-home income, but leaves out the Exchequer’s share, which funds public services or lower taxes.</p>
+<p><strong>Household disposable income:</strong> Counts the share of extra output that reaches households after tax, about 60% of the total. It is closest to take-home income, but leaves out the Exchequer’s share, which funds public services or lower taxes. It is the default in the model.</p>
 </blockquote></li>
 </ul>
 <p>The choice changes only the result for the group as a whole. In the illustrative reform the group is better off from year 2, 3 or 5 under each measure in turn, and £8.0 billion, £6.0 billion or £1.8 billion ahead after ten years. The individual and poverty results do not change, because they already assume incomes rise in proportion to GDP. The 87% and 60% shares are approximations from the national accounts.</p>
@@ -336,7 +345,7 @@ const D={"ages": {"20": {"S": [0, 0.8099, 0.728, 0.7098, 0.6786, 0.6786, 0.6786,
 const MU=0.3688105057457333,SIG=0.35,H=15;
 const C={orange:'#EC704A',pale:'#99ACFF',lime:'#C4D54B',navy:'#112743',off:'#EBEBEB'};
 const $=id=>document.getElementById(id);
-const DEF={N:1000000,L:3800,P:20,mode:'ina',cont:true,exits:true,cu:true,age:20,ls:'gdp',v1:'cum',v2:'cum'};
+const DEF={N:1000000,L:3800,P:20,mode:'ina',cont:true,exits:true,cu:true,age:20,ls:'hdi',v1:'cum',v2:'cum'};
 let S={...DEF};
 function erf(x){const s=Math.sign(x);x=Math.abs(x);const t=1/(1+0.3275911*x);return s*(1-(((((1.061405429*t-1.453152027)*t)+1.421413741)*t-0.284496736)*t+0.254829592)*t*Math.exp(-x*x))}
 const Phi=z=>0.5*(1+erf(z/Math.SQRT2)), F=x=>x<=0?0:Phi((Math.log(x)-MU)/SIG);
@@ -366,8 +375,12 @@ function showTT(e,h){tt.innerHTML=h;tt.style.display='block';const w=tt.offsetWi
 function hideTT(){tt.style.display='none'}
 function buildChart(el,layers,yf,tf,ytitle){
   el.innerHTML='';
-  const W=Math.max(el.clientWidth,280),Hh=300,m={t:16,r:18,b:26,l:74};
+  const W=Math.max(el.clientWidth,280),Hh=300,m={t:16,r:136,b:26,l:74};
   const svg=d3.select(el).append('svg').attr('width',W).attr('height',Hh).attr('role','img').attr('aria-label',layers.map(l=>l.name).join(', '));
+  {const wrapL=n=>{const ls=[];let cur='';n.split(' ').forEach(w=>{const nx=(cur+' '+w).trim();if(nx.length>17&&cur){ls.push(cur);cur=w}else cur=nx});ls.push(cur);return ls};
+   const meas=svg.append('text').attr('font-size',11.5).attr('font-weight',700).attr('visibility','hidden');let mw=0;
+   layers.filter(l=>l.label!==false).forEach(l=>wrapL(l.name).forEach(ln=>{meas.text(ln);mw=Math.max(mw,meas.node().getComputedTextLength())}));
+   meas.remove();m.r=Math.ceil(mw)+12;}
   const all=layers.flatMap(l=>l.y).concat([0]);
   let ext=d3.extent(all);const pad=(ext[1]-ext[0])*.08||1;
   const x=d3.scaleLinear().domain([0,H]).range([m.l,W-m.r]);
@@ -388,10 +401,13 @@ function buildChart(el,layers,yf,tf,ytitle){
   const line=a=>d3.line().curve(d3.curveMonotoneX).x(t=>x(t)).y(t=>y(a[t]))(idx);
   layers.forEach(l=>svg.append('path').attr('d',line(l.y)).attr('fill','none').attr('stroke',l.c).attr('stroke-width',l.w||2.6).attr('stroke-linejoin','round').attr('stroke-dasharray',l.dash?'1 5':null).attr('stroke-linecap',l.dash?'round':null));
   const tight=(g,t)=>{const bb=t.node().getBBox();g.insert('rect','text').attr('x',bb.x-1.5).attr('y',bb.y+1).attr('width',bb.width+3).attr('height',Math.max(0,bb.height-2)).attr('rx',1.5).attr('fill',C.navy)};
-  const placed=[];
+  const placed=[];let lastB=-1e9;
   layers.filter(l=>l.label!==false).map(l=>({l,yy:y(l.y[H])})).sort((a,b)=>a.yy-b.yy).forEach(o=>{
-    let yy=o.yy-10; placed.forEach(p=>{if(Math.abs(p-yy)<15)yy=p+15}); placed.push(yy);
-    const g=svg.append('g');tight(g,g.append('text').attr('x',W-m.r).attr('y',yy).attr('text-anchor','end').attr('fill',o.l.c).attr('font-size',11.5).attr('font-weight',700).text(o.l.name));
+    const words=o.l.name.split(' '),lines=[];let cur='';
+    words.forEach(w=>{const nx=(cur+' '+w).trim();if(nx.length>17&&cur){lines.push(cur);cur=w}else cur=nx});lines.push(cur);
+    const hgt=lines.length*13;let top=o.yy-hgt/2;if(top<lastB+4)top=lastB+4;lastB=top+hgt;
+    const t=svg.append('text').attr('y',top+10).attr('fill',o.l.c).attr('font-size',11.5).attr('font-weight',700);
+    lines.forEach((ln,i)=>t.append('tspan').attr('x',W-m.r+8).attr('dy',i?13:0).text(ln));
   });
   const hl=svg.append('line').attr('y1',m.t).attr('y2',Hh-m.b).attr('stroke','rgba(255,255,255,.35)').style('display','none');
   svg.append('rect').attr('x',m.l).attr('y',m.t).attr('width',W-m.l-m.r).attr('height',Hh-m.t-m.b).attr('fill','transparent')
@@ -404,8 +420,39 @@ const gbpK=v=>(v<0?'−£':'£')+Math.abs(Math.round(v/1000))+'k';
 const bn=v=>(v<0?'−£':'£')+Math.abs(v).toFixed(1)+'bn';
 const bnT=v=>(v<0?'−£':'£')+Math.abs(v)+'bn';
 const ppl=v=>(v<0?'−':'+')+Math.abs(Math.round(v*10)*100).toLocaleString('en-GB');
+function buildWaterfall(el,o){
+  el.innerHTML='';
+  const W=Math.max(el.clientWidth,300),Hh=340,m={t:56,r:16,b:52,l:74};
+  const a=o.g1[10],b=o.g2[10]-o.g1[10],c=o.g3[10]-o.g2[10],net=o.g3[10];
+  const steps=[{k:'First round',k2:'no behavioural effect',y0:0,y1:a,col:C.orange},{k:'Second round',k2:'behavioural effect',y0:a,y1:a+b,col:b>=0?'#00A787':C.orange},{k:'Third round',k2:'growth effect',y0:a+b,y1:net,col:c>=0?'#00A787':C.orange},{k:'Net effect',k2:'after ten years',y0:0,y1:net,col:'#ffffff'}];
+  const svg=d3.select(el).append('svg').attr('width',W).attr('height',Hh).attr('role','img').attr('aria-label','Waterfall of the three rounds over ten years');
+  const lo=Math.min(0,...steps.map(s=>Math.min(s.y0,s.y1))),hi=Math.max(0,...steps.map(s=>Math.max(s.y0,s.y1)));
+  const pad=(hi-lo)*.1||1;
+  const y=d3.scaleLinear().domain([lo-pad,hi+pad]).nice(5).range([Hh-m.b,m.t]);
+  const x=d3.scaleBand().domain(steps.map(s=>s.k)).range([m.l,W-m.r]).padding(.32);
+  const yt=y.ticks(5);
+  svg.append('g').selectAll('line').data(yt).join('line').attr('x1',m.l).attr('x2',W-m.r).attr('y1',y).attr('y2',y).attr('stroke','rgba(255,255,255,.1)');
+  svg.append('g').selectAll('text').data(yt).join('text').attr('x',m.l-7).attr('y',d=>y(d)+4).attr('text-anchor','end').attr('fill','#9fb2cc').attr('font-size',11).text(d=>d===0?'Base':bnT(d));
+  svg.append('text').attr('transform',`translate(14,${(m.t+Hh-m.b)/2}) rotate(-90)`).attr('text-anchor','middle').attr('fill','#9fb2cc').attr('font-size',11).attr('font-weight',700).text(LS[S.ls].ax);
+  svg.append('line').attr('x1',m.l).attr('x2',W-m.r).attr('y1',y(0)).attr('y2',y(0)).attr('stroke','rgba(255,255,255,.45)');
+  steps.forEach((s,i)=>{
+    const top=y(Math.max(s.y0,s.y1)),h=Math.max(2,Math.abs(y(s.y0)-y(s.y1)));
+    svg.append('rect').attr('x',x(s.k)).attr('y',top).attr('width',x.bandwidth()).attr('height',h).attr('rx',3).attr('fill',s.col).attr('opacity',i===3?.92:1);
+    const v=s.y1-s.y0, val=i===3?s.y1:v;
+    svg.append('text').attr('x',x(s.k)+x.bandwidth()/2).attr('y',val>=0?top-7:top+h+15).attr('text-anchor','middle').attr('fill','#fff').attr('font-size',12.5).attr('font-weight',800).text((i>0&&i<3&&val>=0?'+':'')+bn(val));
+    if(i<2){const nx=x(steps[i+1].k);svg.append('line').attr('x1',x(s.k)+x.bandwidth()).attr('x2',nx).attr('y1',y(s.y1)).attr('y2',y(s.y1)).attr('stroke','rgba(255,255,255,.45)').attr('stroke-dasharray','3 3')}
+    svg.append('text').attr('x',x(s.k)+x.bandwidth()/2).attr('y',Hh-m.b+18).attr('text-anchor','middle').attr('fill','#e9eef6').attr('font-size',12).attr('font-weight',700).text(s.k);
+    svg.append('text').attr('x',x(s.k)+x.bandwidth()/2).attr('y',Hh-m.b+33).attr('text-anchor','middle').attr('fill','#9fb2cc').attr('font-size',11).text(s.k2);
+  });
+  const brk=(k1,k2,label,col)=>{const x1=x(k1),x2=x(k2)+x.bandwidth(),yy=m.t-26;
+    svg.append('path').attr('d',`M${x1},${yy+8}V${yy}H${x2}V${yy+8}`).attr('fill','none').attr('stroke',col).attr('stroke-width',1.5);
+    svg.append('text').attr('x',(x1+x2)/2).attr('y',yy-7).attr('text-anchor','middle').attr('fill',col).attr('font-size',12).attr('font-weight',800).text(label)};
+  brk('First round','First round','What standard analysis shows',C.orange);
+  brk('Second round','Third round','What this model adds','#00A787');
+}
 function render(){
   const o=model();
+  buildWaterfall($('c0'),o);
   const e=firstPos(o.i2),g=firstPos(o.g3);
   $('k1').textContent=e?'Year '+e:'Beyond 15 years';
   $('k2').textContent=g?'Year '+g:'Beyond 15 years';
@@ -415,9 +462,9 @@ function render(){
   const tr=(a,on)=>on?a.map((v,i)=>i?v-a[i-1]:0):a, a1=S.v1==='ann', a2=S.v2==='ann';
   $('s1').textContent=(a1?'Each year\u2019s':'Cumulative')+' net cash against the no-policy base, a person who moves into work';
   $('s2').textContent=(a2?'Each year\u2019s':'Cumulative')+' change in aggregate living standards against the no-policy base, £bn';
-  buildChart($('c1'),[{name:'First round',y:tr(o.i1,a1),c:C.orange},{name:'+ Return to work',y:tr(o.i2,a1),c:C.pale},{name:'+ Growth',y:tr(o.i3,a1),c:C.lime}],gbpK,gbp,(a1?'Annual':'Cumulative')+' net cash, £');
-  buildChart($('c2'),[{name:'First round',y:tr(o.g1,a2),c:C.orange},{name:'+ Return to work',y:tr(o.g2,a2),c:C.pale},{name:'+ Growth',y:tr(o.g3,a2),c:C.lime,w:3.2}],bnT,bn,LS[S.ls].ax.replace('Cumulative',a2?'Annual':'Cumulative'));
-  buildChart($('c3'),[{name:'First round',y:o.v1,c:C.orange},{name:'+ Return to work',y:o.v2,c:C.pale},{name:'+ Growth, no change',y:o.v2,c:C.lime,dash:true}],v=>(v>0?'+':'')+v+'k',ppl,'Change in people in poverty, thousands');
+  buildChart($('c1'),[{name:'Assuming no behavioural effect',y:tr(o.i1,a1),c:C.orange},{name:'+ With behavioural effect',y:tr(o.i2,a1),c:C.pale},{name:'+ Growth effect',y:tr(o.i3,a1),c:C.lime}],gbpK,gbp,(a1?'Annual':'Cumulative')+' net cash, £');
+  buildChart($('c2'),[{name:'Assuming no behavioural effect',y:tr(o.g1,a2),c:C.orange},{name:'+ With behavioural effect',y:tr(o.g2,a2),c:C.pale},{name:'+ Growth effect',y:tr(o.g3,a2),c:C.lime,w:3.2}],bnT,bn,LS[S.ls].ax.replace('Cumulative',a2?'Annual':'Cumulative'));
+  buildChart($('c3'),[{name:'Assuming no behavioural effect',y:o.v1,c:C.orange},{name:'+ With behavioural effect',y:o.v2,c:C.pale}],v=>(v>0?'+':'')+v+'k',ppl,'Change in people in poverty, thousands');
 }
 function sync(){
   $('nN').value=(S.N/1e6).toFixed(2);$('nL').value=S.L;$('nP').value=S.P;$('rP').value=S.P;
