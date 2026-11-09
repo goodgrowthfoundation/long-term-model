@@ -42,6 +42,10 @@ body{font-family:var(--font);background:var(--paper);color:var(--ink);line-heigh
 .seg button[aria-pressed="true"]{background:var(--navy);color:#fff;box-shadow:inset 0 -3px 0 var(--lime)}
 .hint{font-size:.72rem;color:var(--muted);margin-top:4px}
 .seg4{grid-template-columns:repeat(4,1fr)}
+.ph{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.vseg{width:220px;margin-top:0;background:rgba(255,255,255,.08);border-color:var(--navyLine)}
+.vseg button{color:var(--onNavy)}
+.vseg button[aria-pressed="true"]{background:#fff;color:var(--navy)}
 .seg3{grid-template-columns:repeat(3,1fr)}
 .seg3 button{font-size:.72rem}
 .seg4 button{font-size:.86rem}
@@ -113,11 +117,11 @@ body{font-family:var(--font);background:var(--paper);color:var(--ink);line-heigh
     <div class="kpi"><b id="k3"></b><span id="k3s">Extra GDP a year by year 10</span></div>
     <div class="kpi"><b id="k4"></b><span>Extra people in poverty, year 10</span></div>
   </div>
-  <section class="panel"><h3>The individual</h3><div class="sub">Cumulative net cash against the no-policy base, a person who moves into work</div>
+  <section class="panel"><div class="ph"><h3>The individual</h3><div class="seg vseg" role="group" aria-label="Individual chart view"><button type="button" data-v="v1" data-view="cum" aria-pressed="true">Cumulative</button><button type="button" data-v="v1" data-view="ann" aria-pressed="false">Each year</button></div></div><div class="sub" id="s1"></div>
     <div class="chart" id="c1"></div>
     <p class="src"><b>Notes:</b> <span id="n1"></span></p>
     <p class="src"><b>Source:</b> GGF calculations using Understanding Society, waves 1 to 15 (2009-10 to 2023-24); OBR; ONS.</p></section>
-  <section class="panel"><h3>The group affected</h3><div class="sub">Cumulative change in aggregate living standards against the no-policy base, £bn</div>
+  <section class="panel"><div class="ph"><h3>The group affected</h3><div class="seg vseg" role="group" aria-label="Group chart view"><button type="button" data-v="v2" data-view="cum" aria-pressed="true">Cumulative</button><button type="button" data-v="v2" data-view="ann" aria-pressed="false">Each year</button></div></div><div class="sub" id="s2"></div>
     <div class="chart" id="c2"></div>
     <p class="src"><b>Notes:</b> Growth adds the extra output of those in work, valued using <span id="lsn"></span>. Under the inactive setting it starts at two-thirds of average output and, with catch-up on, rises with pay to the national average. Working-age effects end at 66.</p>
     <p class="src"><b>Source:</b> GGF calculations using Understanding Society; OBR, Fiscal risks and sustainability, July 2023; ONS, Blue Book 2025.</p></section>
@@ -133,7 +137,7 @@ const D={"ages": {"20": {"S": [0, 0.8099, 0.728, 0.7098, 0.6786, 0.6786, 0.6786,
 const MU=0.3688105057457333,SIG=0.35,H=15;
 const C={orange:'#EC704A',pale:'#99ACFF',lime:'#C4D54B',navy:'#112743',off:'#EBEBEB'};
 const $=id=>document.getElementById(id);
-const DEF={N:1000000,L:3800,P:20,mode:'ina',cont:true,exits:true,cu:true,age:20,ls:'gdp'};
+const DEF={N:1000000,L:3800,P:20,mode:'ina',cont:true,exits:true,cu:true,age:20,ls:'gdp',v1:'cum',v2:'cum'};
 let S={...DEF};
 function erf(x){const s=Math.sign(x);x=Math.abs(x);const t=1/(1+0.3275911*x);return s*(1-(((((1.061405429*t-1.453152027)*t)+1.421413741)*t-0.284496736)*t+0.254829592)*t*Math.exp(-x*x))}
 const Phi=z=>0.5*(1+erf(z/Math.SQRT2)), F=x=>x<=0?0:Phi((Math.log(x)-MU)/SIG);
@@ -179,10 +183,10 @@ function buildChart(el,layers,yf,tf,ytitle){
   // bands between successive layers show each round building on the last
   for(let i=1;i<layers.length;i++){
     const lo=layers[i-1].y,hi=layers[i].y;
-    const area=d3.area().x(t=>x(t)).y0(t=>y(lo[t])).y1(t=>y(hi[t]));
+    const area=d3.area().curve(d3.curveMonotoneX).x(t=>x(t)).y0(t=>y(lo[t])).y1(t=>y(hi[t]));
     svg.append('path').attr('d',area(idx)).attr('fill',layers[i].c).attr('opacity',.2);
   }
-  const line=a=>d3.line().x(t=>x(t)).y(t=>y(a[t]))(idx);
+  const line=a=>d3.line().curve(d3.curveMonotoneX).x(t=>x(t)).y(t=>y(a[t]))(idx);
   layers.forEach(l=>svg.append('path').attr('d',line(l.y)).attr('fill','none').attr('stroke',l.c).attr('stroke-width',l.w||2.6).attr('stroke-linejoin','round').attr('stroke-dasharray',l.dash?'1 5':null).attr('stroke-linecap',l.dash?'round':null));
   const tight=(g,t)=>{const bb=t.node().getBBox();g.insert('rect','text').attr('x',bb.x-1.5).attr('y',bb.y+1).attr('width',bb.width+3).attr('height',Math.max(0,bb.height-2)).attr('rx',1.5).attr('fill',C.navy)};
   const placed=[];
@@ -209,8 +213,11 @@ function render(){
   $('k3').textContent='£'+(o.gdp10/1e9).toFixed(1)+'bn';
   $('k3s').textContent='Extra GDP a year by year 10, '+(o.gdp10/D.gdp*100).toFixed(2)+'%';
   $('k4').textContent=ppl(o.v2[10]);
-  buildChart($('c1'),[{name:'First round',y:o.i1,c:C.orange},{name:'+ Return to work',y:o.i2,c:C.pale},{name:'+ Growth',y:o.i3,c:C.lime}],gbpK,gbp,'Cumulative net cash, £');
-  buildChart($('c2'),[{name:'First round',y:o.g1,c:C.orange},{name:'+ Return to work',y:o.g2,c:C.pale},{name:'+ Growth',y:o.g3,c:C.lime,w:3.2}],bnT,bn,LS[S.ls].ax);
+  const tr=(a,on)=>on?a.map((v,i)=>i?v-a[i-1]:0):a, a1=S.v1==='ann', a2=S.v2==='ann';
+  $('s1').textContent=(a1?'Each year\u2019s':'Cumulative')+' net cash against the no-policy base, a person who moves into work';
+  $('s2').textContent=(a2?'Each year\u2019s':'Cumulative')+' change in aggregate living standards against the no-policy base, £bn';
+  buildChart($('c1'),[{name:'First round',y:tr(o.i1,a1),c:C.orange},{name:'+ Return to work',y:tr(o.i2,a1),c:C.pale},{name:'+ Growth',y:tr(o.i3,a1),c:C.lime}],gbpK,gbp,(a1?'Annual':'Cumulative')+' net cash, £');
+  buildChart($('c2'),[{name:'First round',y:tr(o.g1,a2),c:C.orange},{name:'+ Return to work',y:tr(o.g2,a2),c:C.pale},{name:'+ Growth',y:tr(o.g3,a2),c:C.lime,w:3.2}],bnT,bn,LS[S.ls].ax.replace('Cumulative',a2?'Annual':'Cumulative'));
   buildChart($('c3'),[{name:'First round',y:o.v1,c:C.orange},{name:'+ Return to work',y:o.v2,c:C.pale},{name:'+ Growth, no change',y:o.v2,c:C.lime,dash:true}],v=>(v>0?'+':'')+v+'k',ppl,'Extra people in poverty, thousands');
 }
 function sync(){
@@ -220,6 +227,7 @@ function sync(){
   $('cu').checked=S.cu;$('cu').disabled=S.mode==='avg';$('cuRow').classList.toggle('off',S.mode==='avg');
   document.querySelectorAll('[data-age]').forEach(b=>b.setAttribute('aria-pressed',+b.dataset.age===S.age));
   document.querySelectorAll('[data-ls]').forEach(b=>b.setAttribute('aria-pressed',b.dataset.ls===S.ls));
+  document.querySelectorAll('[data-view]').forEach(b=>b.setAttribute('aria-pressed',b.dataset.view===S[b.dataset.v]));
   $('lsh').textContent=LS[S.ls].h; $('lsn').textContent=LS[S.ls].n;
   $('modeh').textContent=S.mode==='avg'?'Each new worker is as productive as the average worker, a 1:1 ratio.':'New workers start at two-thirds of average productivity (0.67) and catch up as their pay grows.';
   $('n1').textContent=`A ${S.age}-year-old out of work with a health condition who moves into work in year 2. The growth dividend raises income in line with GDP.`;
@@ -235,6 +243,7 @@ $('cont').onchange=e=>{S.cont=e.target.checked;render()};$('exits').onchange=e=>
 $('cu').onchange=e=>{S.cu=e.target.checked;render()};
 document.querySelectorAll('[data-age]').forEach(b=>b.onclick=()=>{S.age=+b.dataset.age;sync();render()});
 document.querySelectorAll('[data-ls]').forEach(b=>b.onclick=()=>{S.ls=b.dataset.ls;sync();render()});
+document.querySelectorAll('[data-view]').forEach(b=>b.onclick=()=>{S[b.dataset.v]=b.dataset.view;sync();render()});
 $('reset').onclick=()=>{S={...DEF};sync();render()};
 let rt;addEventListener('resize',()=>{clearTimeout(rt);rt=setTimeout(render,120)});
 sync();render();
