@@ -118,7 +118,8 @@ article.paper{overflow:hidden}
 .intro .lede{color:var(--ink);font-size:.92rem;line-height:1.55;margin:0}
 .rounds{list-style:none;padding:0;margin:12px 0 0;display:flex;flex-direction:column;gap:8px}
 .rounds li{display:flex;gap:10px;align-items:flex-start;font-size:.88rem;line-height:1.45;color:var(--ink)}
-.rounds .dot{flex:none;width:12px;height:12px;border-radius:50%;margin-top:4px}
+.rounds .dot{display:none}
+.rounds b{text-decoration-line:underline;text-decoration-thickness:3px;text-underline-offset:4px}
 .intro .src2{font-size:.7rem;color:var(--muted);margin:4px 0 0}
 .intro .src2 b{color:var(--ink)}
 .outh{font-size:1.15rem;font-weight:800;margin:0 0 12px;color:var(--ink);letter-spacing:-.01em}
@@ -175,9 +176,9 @@ document.getElementById('gf').addEventListener('submit',e=>{e.preventDefault();i
   <section class="intro" aria-label="What this model adds">
     <div class="intro-text"><h2>What this model adds</h2><p class="lede">Standard distributional analysis, as <b>published by government and influential think tanks</b>, shows the first round. It is the cash change on the day a policy starts, with behaviour held fixed. <b>This model adds two further rounds.</b> The second counts the gains for people who move into work, and the third counts the extra output they produce.</p>
       <ul class="rounds">
-        <li><span class="dot" style="background:var(--orange)"></span><span><b>No behavioural effect.</b> The first round. Everyone affected loses the cash, every year.</span></li>
-        <li><span class="dot" style="background:var(--pale)"></span><span><b>+ Behavioural effect.</b> Adds the gain for people who move into work, after tax and benefit withdrawal, using pay paths from Understanding Society.</span></li>
-        <li><span class="dot" style="background:var(--lime)"></span><span><b>+ Growth effect.</b> Adds the extra output those new workers produce, valued using the measure of living standards chosen on the left.</span></li>
+        <li><span><b style="text-decoration-color:var(--orange)">No behavioural effect.</b> The first round. Everyone affected loses the cash, every year.</span></li>
+        <li><span><b style="text-decoration-color:var(--pale)">+ Behavioural effect.</b> Adds the gain for people who move into work, after tax and benefit withdrawal, using pay paths from Understanding Society.</span></li>
+        <li><span><b style="text-decoration-color:var(--lime)">+ Growth effect.</b> Adds the extra output those new workers produce, valued using the measure of living standards chosen on the left.</span></li>
       </ul></div>
     <div class="intro-chart"><div class="chart" id="c0" style="min-height:340px"></div>
       <p class="src2"><b>Notes:</b> The group affected, cumulative over ten years, using the parameters set on the left.</p>
@@ -418,7 +419,7 @@ function buildChart(el,layers,yf,tf,ytitle){
     svg.append('path').attr('d',area(idx)).attr('fill',layers[i].c).attr('opacity',.2);
   }
   const line=a=>d3.line().curve(d3.curveMonotoneX).x(t=>x(t)).y(t=>y(a[t]))(idx);
-  layers.forEach(l=>svg.append('path').attr('d',line(l.y)).attr('fill','none').attr('stroke',l.c).attr('stroke-width',l.w||2.6).attr('stroke-linejoin','round').attr('stroke-dasharray',l.dash?'1 5':null).attr('stroke-linecap',l.dash?'round':null));
+  [...layers.slice(1),layers[0]].forEach(l=>svg.append('path').attr('d',line(l.y)).attr('fill','none').attr('stroke',l.c).attr('stroke-width',l===layers[0]?3.8:2.4).attr('stroke-linejoin','round').attr('stroke-dasharray',l.dash?'1 5':null).attr('stroke-linecap',l.dash?'round':null));
   const tight=(g,t)=>{const bb=t.node().getBBox();g.insert('rect','text').attr('x',bb.x-1.5).attr('y',bb.y+1).attr('width',bb.width+3).attr('height',Math.max(0,bb.height-2)).attr('rx',1.5).attr('fill',C.navy)};
   const placed=[];let lastB=-1e9;
   layers.filter(l=>l.label!==false).map(l=>({l,yy:y(l.y[H])})).sort((a,b)=>a.yy-b.yy).forEach(o=>{
@@ -441,34 +442,37 @@ const bnT=v=>(v<0?'−£':'£')+Math.abs(v)+'bn';
 const ppl=v=>(v<0?'−':'+')+Math.abs(Math.round(v*10)*100).toLocaleString('en-GB');
 function buildWaterfall(el,o){
   el.innerHTML='';
-  const W=Math.max(el.clientWidth,300),Hh=340,m={t:44,r:16,b:50,l:74};
+  const W=Math.max(el.clientWidth,260),sm=W<560,Hh=sm?320:340,m={t:sm?40:44,r:sm?6:16,b:sm?44:50,l:sm?46:74};
+  const fs=sm?10.5:12,fv=sm?11:12.5;
   const a=o.g1[10],b=o.g2[10]-o.g1[10],c=o.g3[10]-o.g2[10],net=o.g3[10];
-  const steps=[{k:'First round',k2:'no behavioural effect',y0:0,y1:a,col:C.orange},{k:'Second round',k2:'behavioural effect',y0:a,y1:a+b,col:b>=0?'#00A787':C.orange},{k:'Third round',k2:'growth effect',y0:a+b,y1:net,col:c>=0?'#00A787':C.orange},{k:'Net effect',k2:'after ten years',y0:0,y1:net,col:'NET'}];
+  const steps=[{k:'First round',s:'Round 1',k2:'no behavioural effect',s2:'no behaviour',y0:0,y1:a,col:C.orange},{k:'Second round',s:'Round 2',k2:'behavioural effect',s2:'behaviour',y0:a,y1:a+b,col:b>=0?'#00A787':C.orange},{k:'Third round',s:'Round 3',k2:'growth effect',s2:'growth',y0:a+b,y1:net,col:c>=0?'#00A787':C.orange},{k:'Net effect',s:'Net',k2:'after ten years',s2:'10 years',y0:0,y1:net,col:'NET'}];
   const svg=d3.select(el).append('svg').attr('width',W).attr('height',Hh).attr('role','img').attr('aria-label','Waterfall of the three rounds over ten years');
   const lo=Math.min(0,...steps.map(s=>Math.min(s.y0,s.y1))),hi=Math.max(0,...steps.map(s=>Math.max(s.y0,s.y1)));
-  const pad=(hi-lo)*.1||1;
+  const pad=(hi-lo)*.12||1;
   const y=d3.scaleLinear().domain([lo-pad,hi+pad]).nice(5).range([Hh-m.b,m.t]);
-  const x=d3.scaleBand().domain(steps.map(s=>s.k)).range([m.l,W-m.r]).padding(.32);
-  const yt=y.ticks(5);
+  const x=d3.scaleBand().domain(steps.map(s=>s.k)).range([m.l,W-m.r]).padding(sm?.24:.32);
+  const yt=y.ticks(sm?4:5);
   svg.append('g').selectAll('line').data(yt).join('line').attr('x1',m.l).attr('x2',W-m.r).attr('y1',y).attr('y2',y).style('stroke','var(--line)');
-  svg.append('g').selectAll('text').data(yt).join('text').attr('x',m.l-7).attr('y',d=>y(d)+4).attr('text-anchor','end').style('fill','var(--muted)').attr('font-size',11).text(d=>d===0?'Base':bnT(d));
-  svg.append('text').attr('transform',`translate(14,${(m.t+Hh-m.b)/2}) rotate(-90)`).attr('text-anchor','middle').style('fill','var(--muted)').attr('font-size',11).attr('font-weight',700).text(LS[S.ls].ax);
+  svg.append('g').selectAll('text').data(yt).join('text').attr('x',m.l-6).attr('y',d=>y(d)+4).attr('text-anchor','end').style('fill','var(--muted)').attr('font-size',fs).text(d=>d===0?'Base':bnT(d));
+  if(!sm) svg.append('text').attr('transform',`translate(14,${(m.t+Hh-m.b)/2}) rotate(-90)`).attr('text-anchor','middle').style('fill','var(--muted)').attr('font-size',11).attr('font-weight',700).text(LS[S.ls].ax);
   svg.append('line').attr('x1',m.l).attr('x2',W-m.r).attr('y1',y(0)).attr('y2',y(0)).style('stroke','var(--muted)');
   steps.forEach((s,i)=>{
     const top=y(Math.max(s.y0,s.y1)),h=Math.max(2,Math.abs(y(s.y0)-y(s.y1)));
     svg.append('rect').attr('x',x(s.k)).attr('y',top).attr('width',x.bandwidth()).attr('height',h).attr('rx',3).style('fill',s.col==='NET'?'var(--ink)':s.col).attr('opacity',i===3?.92:1);
     const v=s.y1-s.y0, val=i===3?s.y1:v;
-    svg.append('text').attr('x',x(s.k)+x.bandwidth()/2).attr('y',val>=0?top-7:top+h+15).attr('text-anchor','middle').style('fill','var(--ink)').attr('font-size',12.5).attr('font-weight',800).text((i>0&&i<3&&val>=0?'+':'')+bn(val));
+    const txt=(i>0&&i<3&&val>=0?'+':'')+(sm?(val<0?'−£':'£')+Math.abs(val).toFixed(0)+'bn':bn(val));
+    svg.append('text').attr('x',x(s.k)+x.bandwidth()/2).attr('y',val>=0?top-6:top+h+14).attr('text-anchor','middle').style('fill','var(--ink)').attr('font-size',fv).attr('font-weight',800).text(txt);
     if(i<2){const nx=x(steps[i+1].k);svg.append('line').attr('x1',x(s.k)+x.bandwidth()).attr('x2',nx).attr('y1',y(s.y1)).attr('y2',y(s.y1)).style('stroke','var(--muted)').attr('stroke-dasharray','3 3')}
-    svg.append('text').attr('x',x(s.k)+x.bandwidth()/2).attr('y',Hh-m.b+18).attr('text-anchor','middle').style('fill','var(--ink)').attr('font-size',12).attr('font-weight',700).text(s.k);
-    svg.append('text').attr('x',x(s.k)+x.bandwidth()/2).attr('y',Hh-m.b+33).attr('text-anchor','middle').style('fill','var(--muted)').attr('font-size',10).text(s.k2);
+    svg.append('text').attr('x',x(s.k)+x.bandwidth()/2).attr('y',Hh-m.b+17).attr('text-anchor','middle').style('fill','var(--ink)').attr('font-size',sm?11:12).attr('font-weight',700).text(sm?s.s:s.k);
+    svg.append('text').attr('x',x(s.k)+x.bandwidth()/2).attr('y',Hh-m.b+(sm?30:33)).attr('text-anchor','middle').style('fill','var(--muted)').attr('font-size',sm?9.5:10).text(sm?s.s2:s.k2);
   });
-  const brk=(k1,k2,label,col)=>{const x1=x(k1),x2=x(k2)+x.bandwidth(),yy=m.t-26;
+  const brk=(k1,k2,label,col)=>{const x1=x(k1),x2=x(k2)+x.bandwidth(),yy=m.t-24;
     svg.append('path').attr('d',`M${x1},${yy+8}V${yy}H${x2}V${yy+8}`).attr('fill','none').attr('stroke',col).attr('stroke-width',1.5);
-    svg.append('text').attr('x',(x1+x2)/2).attr('y',yy-7).attr('text-anchor','middle').attr('fill',col).attr('font-size',12).attr('font-weight',800).text(label)};
-  brk('First round','First round','Standard analysis',C.orange);
-  brk('Second round','Third round','What this model adds','#00A787');
+    svg.append('text').attr('x',(x1+x2)/2).attr('y',yy-6).attr('text-anchor','middle').attr('fill',col).attr('font-size',sm?10.5:12).attr('font-weight',800).text(label)};
+  brk('First round','First round',sm?'Standard':'Standard analysis',C.orange);
+  brk('Second round','Third round',sm?'Model adds':'What this model adds','#00A787');
 }
+
 function render(){
   const o=model();
   buildWaterfall($('c0'),o);
