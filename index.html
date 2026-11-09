@@ -30,7 +30,7 @@ body{font-family:var(--font);background:var(--paper);color:var(--ink);line-heigh
 .banner p{margin:3px 0 0;color:var(--onNavyMuted);font-size:.92rem}
 .proto{background:var(--lime);color:var(--navy);font-size:.78rem;font-weight:700;text-align:center;padding:6px 16px}
 .layout{display:grid;grid-template-columns:480px minmax(0,1fr);gap:0;padding:0;margin:0;align-items:start;background:linear-gradient(to right,#2a2e35 480px,transparent 480px)}
-main{padding:24px 36px 40px;max-width:900px;width:100%;justify-self:center}
+main{padding:22px 30px 36px;max-width:1280px;width:100%;justify-self:center}
 .params{position:sticky;top:0;height:100vh;overflow-y:auto;background:#2a2e35;color:#eef0f3;border:none;border-right:1px solid #3a3f48;border-radius:0;padding:26px 36px}
 .params h2{margin:0 0 18px;padding-bottom:12px;border-bottom:1px solid rgba(255,255,255,.2);font-size:1.4rem;font-weight:800;letter-spacing:-.01em}
 .p{margin-bottom:16px}
@@ -77,10 +77,10 @@ main{padding:24px 36px 40px;max-width:900px;width:100%;justify-self:center}
 .kpi.lead b{color:var(--lime)}
 .kpi span{display:block;font-size:.76rem;color:var(--onNavyMuted);font-weight:600;margin-top:4px}
 .panel{background:var(--navy);color:var(--onNavy);border-radius:16px;border-top:4px solid var(--lime);box-shadow:0 10px 30px rgba(17,39,67,.16);padding:20px 22px 14px;margin-bottom:22px}
-.panel h3{margin:0;font-size:1.22rem;font-weight:800;color:#fff;letter-spacing:-.01em}
-.panel .sub{font-size:.84rem;color:var(--onNavyMuted);margin-top:3px}
-.chart{width:100%;min-height:300px;position:relative;margin-top:8px}
-.src{font-size:.7rem;color:var(--onNavyMuted);margin:6px 0 0}
+.panel h3{margin:0;font-size:1.4rem;font-weight:800;color:#fff;letter-spacing:-.01em}
+.panel .sub{font-size:.95rem;color:var(--onNavyMuted);margin-top:3px}
+.chart{width:100%;min-height:380px;position:relative;margin-top:8px}
+.src{font-size:.8rem;color:var(--onNavyMuted);margin:6px 0 0}
 .src b{color:var(--onNavy);font-weight:700}
 .tt{position:fixed;pointer-events:none;background:#fff;color:var(--navy);border-radius:8px;padding:8px 10px;font-size:.78rem;box-shadow:0 6px 20px rgba(0,0,0,.25);display:none;z-index:9;line-height:1.45}
 @media (max-width:900px){.layout{grid-template-columns:1fr;padding:0;background:none}.params{position:static;height:auto;overflow:visible}main{padding:16px}.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}
@@ -88,12 +88,13 @@ main{padding:24px 36px 40px;max-width:900px;width:100%;justify-self:center}
 .banner .rule{display:none}.banner>div:not(.rule){display:contents}.wm-img{height:40px}.banner h1{font-size:1.3rem}.banner p{grid-column:1/-1;margin:0}
 .panel{display:flex;flex-direction:column}.ph{display:contents}.panel h3{order:1}.panel .sub{order:2}.vseg{order:3;align-self:flex-start;margin-top:10px}.panel .chart,.panel .src{order:4}}
 
-#writeView{max-width:820px;margin:0 auto;padding:28px 24px 60px}
+#writeView{max-width:1120px;margin:0 auto;padding:24px 30px 60px}
 .wbar{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:18px}
 .wbar a,.wbtn{display:inline-block;text-decoration:none;font-weight:800;font-size:.86rem;border-radius:9px;padding:9px 14px}
 .wbar a{background:var(--navy);color:#fff}
 .wbtn{margin-top:10px;width:100%;text-align:center;background:var(--blue);color:#fff}
-article.paper{background:var(--card);border:1px solid var(--line);border-top:4px solid var(--lime);border-radius:14px;padding:30px 36px;color:var(--ink);line-height:1.65}
+article.paper{background:var(--card);border:1px solid var(--line);border-top:4px solid var(--lime);border-radius:14px;padding:34px 48px;color:var(--ink);line-height:1.65}
+article.paper img{display:block;max-width:860px;width:100%;margin-left:auto;margin-right:auto}
 article.paper h1.ptitle{font-size:1.7rem;line-height:1.2;margin:0 0 6px;color:var(--ink);letter-spacing:-.02em}
 article.paper .kicker{font-size:.8rem;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:var(--blue);margin:0 0 18px}
 article.paper h1{font-size:1.3rem;margin:30px 0 8px}
@@ -111,6 +112,17 @@ article.paper hr{display:none}
 article.paper a,article.paper .footnotes,article.paper .footnotes li,article.paper .footnotes p{overflow-wrap:anywhere;word-break:break-word}
 article.paper .footnotes{font-size:.8rem;color:var(--muted);border-top:1px solid var(--line);margin-top:30px;padding-top:10px}
 article.paper{overflow:hidden}
+
+.intro{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.25fr);gap:30px;align-items:center;padding:0 0 14px;margin-bottom:14px;border-bottom:1px solid var(--line)}
+.intro h2{font-size:1.45rem;font-weight:800;letter-spacing:-.02em;line-height:1.15;margin:0 0 10px;color:var(--ink)}
+.intro .lede{color:var(--ink);font-size:.92rem;line-height:1.55;margin:0}
+.rounds{list-style:none;padding:0;margin:12px 0 0;display:flex;flex-direction:column;gap:8px}
+.rounds li{display:flex;gap:10px;align-items:flex-start;font-size:.88rem;line-height:1.45;color:var(--ink)}
+.rounds .dot{flex:none;width:12px;height:12px;border-radius:50%;margin-top:4px}
+.intro .src2{font-size:.7rem;color:var(--muted);margin:4px 0 0}
+.intro .src2 b{color:var(--ink)}
+.outh{font-size:1.15rem;font-weight:800;margin:0 0 12px;color:var(--ink);letter-spacing:-.01em}
+@media (max-width:900px){.intro{grid-template-columns:1fr;gap:12px}}
 </style>
 </head>
 <body>
@@ -160,11 +172,18 @@ document.getElementById('gf').addEventListener('submit',e=>{e.preventDefault();i
   <a class="wbtn" href="#writeup">Read the technical write-up</a>
 </aside>
 <main>
-  <section class="panel intro"><h3>What this model adds</h3>
-    <p class="lede">Standard distributional analysis, as <b>published by government and influential think tanks</b>, shows the first round. It is the cash change on the day a policy starts, with behaviour held fixed. <b>This model adds two further rounds.</b> The second counts the gains for people who move into work, and the third counts the extra output they produce.</p>
-    <div class="chart" id="c0" style="min-height:340px"></div>
-    <p class="src"><b>Notes:</b> The group affected, cumulative over ten years, using the parameters set on the left.</p>
-    <p class="src"><b>Source:</b> GGF calculations using Understanding Society; OBR; ONS.</p></section>
+  <section class="intro" aria-label="What this model adds">
+    <div class="intro-text"><h2>What this model adds</h2><p class="lede">Standard distributional analysis, as <b>published by government and influential think tanks</b>, shows the first round. It is the cash change on the day a policy starts, with behaviour held fixed. <b>This model adds two further rounds.</b> The second counts the gains for people who move into work, and the third counts the extra output they produce.</p>
+      <ul class="rounds">
+        <li><span class="dot" style="background:var(--orange)"></span><span><b>No behavioural effect.</b> The first round. Everyone affected loses the cash, every year.</span></li>
+        <li><span class="dot" style="background:var(--pale)"></span><span><b>+ Behavioural effect.</b> Adds the gain for people who move into work, after tax and benefit withdrawal, using pay paths from Understanding Society.</span></li>
+        <li><span class="dot" style="background:var(--lime)"></span><span><b>+ Growth effect.</b> Adds the extra output those new workers produce, valued using the measure of living standards chosen on the left.</span></li>
+      </ul></div>
+    <div class="intro-chart"><div class="chart" id="c0" style="min-height:340px"></div>
+      <p class="src2"><b>Notes:</b> The group affected, cumulative over ten years, using the parameters set on the left.</p>
+      <p class="src2"><b>Source:</b> GGF calculations using Understanding Society; OBR; ONS.</p></div>
+  </section>
+  <h2 class="outh">Model outputs</h2>
   <div class="kpis" aria-live="polite">
     <div class="kpi"><b id="k1"></b><span>Year the entrant is better off</span></div>
     <div class="kpi lead"><b id="k2"></b><span>Year the group is better off</span></div>
@@ -375,10 +394,10 @@ function showTT(e,h){tt.innerHTML=h;tt.style.display='block';const w=tt.offsetWi
 function hideTT(){tt.style.display='none'}
 function buildChart(el,layers,yf,tf,ytitle){
   el.innerHTML='';
-  const W=Math.max(el.clientWidth,280),Hh=300,m={t:16,r:136,b:26,l:74};
+  const W=Math.max(el.clientWidth,280),Hh=Math.round(Math.max(340,Math.min(480,W*0.46))),fs=Math.round(Math.max(12,Math.min(15,W/66))),lf=fs+1.5,m={t:16,r:136,b:34,l:86};
   const svg=d3.select(el).append('svg').attr('width',W).attr('height',Hh).attr('role','img').attr('aria-label',layers.map(l=>l.name).join(', '));
   {const wrapL=n=>{const ls=[];let cur='';n.split(' ').forEach(w=>{const nx=(cur+' '+w).trim();if(nx.length>17&&cur){ls.push(cur);cur=w}else cur=nx});ls.push(cur);return ls};
-   const meas=svg.append('text').attr('font-size',11.5).attr('font-weight',700).attr('visibility','hidden');let mw=0;
+   const meas=svg.append('text').attr('font-size',lf).attr('font-weight',700).attr('visibility','hidden');let mw=0;
    layers.filter(l=>l.label!==false).forEach(l=>wrapL(l.name).forEach(ln=>{meas.text(ln);mw=Math.max(mw,meas.node().getComputedTextLength())}));
    meas.remove();m.r=Math.ceil(mw)+12;}
   const all=layers.flatMap(l=>l.y).concat([0]);
@@ -386,10 +405,10 @@ function buildChart(el,layers,yf,tf,ytitle){
   const x=d3.scaleLinear().domain([0,H]).range([m.l,W-m.r]);
   const y=d3.scaleLinear().domain([ext[0]-pad,ext[1]+pad]).nice(5).range([Hh-m.b,m.t]);
   const yt=y.ticks(5);
-  svg.append('text').attr('transform',`translate(14,${(m.t+Hh-m.b)/2}) rotate(-90)`).attr('text-anchor','middle').attr('fill','#9fb2cc').attr('font-size',11).attr('font-weight',700).text(ytitle||'');
+  svg.append('text').attr('transform',`translate(14,${(m.t+Hh-m.b)/2}) rotate(-90)`).attr('text-anchor','middle').attr('fill','#9fb2cc').attr('font-size',fs).attr('font-weight',700).text(ytitle||'');
   svg.append('g').selectAll('line').data(yt).join('line').attr('x1',m.l).attr('x2',W-m.r).attr('y1',y).attr('y2',y).attr('stroke','rgba(255,255,255,.1)');
-  svg.append('g').selectAll('text').data(yt).join('text').attr('x',m.l-7).attr('y',d=>y(d)+4).attr('text-anchor','end').attr('fill','#9fb2cc').attr('font-size',11).text(d=>d===0?'Base':yf(d));
-  svg.append('g').selectAll('text').data([0,5,10,15]).join('text').attr('x',x).attr('y',Hh-6).attr('text-anchor','middle').attr('fill','#9fb2cc').attr('font-size',11).text(d=>d===0?'Year 0':'Year '+d);
+  svg.append('g').selectAll('text').data(yt).join('text').attr('x',m.l-7).attr('y',d=>y(d)+4).attr('text-anchor','end').attr('fill','#9fb2cc').attr('font-size',fs).text(d=>d===0?'Base':yf(d));
+  svg.append('g').selectAll('text').data([0,5,10,15]).join('text').attr('x',x).attr('y',Hh-6).attr('text-anchor','middle').attr('fill','#9fb2cc').attr('font-size',fs).text(d=>d===0?'Year 0':'Year '+d);
   svg.append('line').attr('x1',m.l).attr('x2',W-m.r).attr('y1',y(0)).attr('y2',y(0)).attr('stroke','rgba(255,255,255,.45)');
   const idx=d3.range(H+1);
   // bands between successive layers show each round building on the last
@@ -405,9 +424,9 @@ function buildChart(el,layers,yf,tf,ytitle){
   layers.filter(l=>l.label!==false).map(l=>({l,yy:y(l.y[H])})).sort((a,b)=>a.yy-b.yy).forEach(o=>{
     const words=o.l.name.split(' '),lines=[];let cur='';
     words.forEach(w=>{const nx=(cur+' '+w).trim();if(nx.length>17&&cur){lines.push(cur);cur=w}else cur=nx});lines.push(cur);
-    const hgt=lines.length*13;let top=o.yy-hgt/2;if(top<lastB+4)top=lastB+4;lastB=top+hgt;
-    const t=svg.append('text').attr('y',top+10).attr('fill',o.l.c).attr('font-size',11.5).attr('font-weight',700);
-    lines.forEach((ln,i)=>t.append('tspan').attr('x',W-m.r+8).attr('dy',i?13:0).text(ln));
+    const hgt=lines.length*lf*1.2;let top=o.yy-hgt/2;if(top<lastB+4)top=lastB+4;lastB=top+hgt;
+    const t=svg.append('text').attr('y',top+lf*.85).attr('fill',o.l.c).attr('font-size',lf).attr('font-weight',700);
+    lines.forEach((ln,i)=>t.append('tspan').attr('x',W-m.r+8).attr('dy',i?lf*1.2:0).text(ln));
   });
   const hl=svg.append('line').attr('y1',m.t).attr('y2',Hh-m.b).attr('stroke','rgba(255,255,255,.35)').style('display','none');
   svg.append('rect').attr('x',m.l).attr('y',m.t).attr('width',W-m.l-m.r).attr('height',Hh-m.t-m.b).attr('fill','transparent')
@@ -422,32 +441,32 @@ const bnT=v=>(v<0?'−£':'£')+Math.abs(v)+'bn';
 const ppl=v=>(v<0?'−':'+')+Math.abs(Math.round(v*10)*100).toLocaleString('en-GB');
 function buildWaterfall(el,o){
   el.innerHTML='';
-  const W=Math.max(el.clientWidth,300),Hh=340,m={t:56,r:16,b:52,l:74};
+  const W=Math.max(el.clientWidth,300),Hh=340,m={t:44,r:16,b:50,l:74};
   const a=o.g1[10],b=o.g2[10]-o.g1[10],c=o.g3[10]-o.g2[10],net=o.g3[10];
-  const steps=[{k:'First round',k2:'no behavioural effect',y0:0,y1:a,col:C.orange},{k:'Second round',k2:'behavioural effect',y0:a,y1:a+b,col:b>=0?'#00A787':C.orange},{k:'Third round',k2:'growth effect',y0:a+b,y1:net,col:c>=0?'#00A787':C.orange},{k:'Net effect',k2:'after ten years',y0:0,y1:net,col:'#ffffff'}];
+  const steps=[{k:'First round',k2:'no behavioural effect',y0:0,y1:a,col:C.orange},{k:'Second round',k2:'behavioural effect',y0:a,y1:a+b,col:b>=0?'#00A787':C.orange},{k:'Third round',k2:'growth effect',y0:a+b,y1:net,col:c>=0?'#00A787':C.orange},{k:'Net effect',k2:'after ten years',y0:0,y1:net,col:'NET'}];
   const svg=d3.select(el).append('svg').attr('width',W).attr('height',Hh).attr('role','img').attr('aria-label','Waterfall of the three rounds over ten years');
   const lo=Math.min(0,...steps.map(s=>Math.min(s.y0,s.y1))),hi=Math.max(0,...steps.map(s=>Math.max(s.y0,s.y1)));
   const pad=(hi-lo)*.1||1;
   const y=d3.scaleLinear().domain([lo-pad,hi+pad]).nice(5).range([Hh-m.b,m.t]);
   const x=d3.scaleBand().domain(steps.map(s=>s.k)).range([m.l,W-m.r]).padding(.32);
   const yt=y.ticks(5);
-  svg.append('g').selectAll('line').data(yt).join('line').attr('x1',m.l).attr('x2',W-m.r).attr('y1',y).attr('y2',y).attr('stroke','rgba(255,255,255,.1)');
-  svg.append('g').selectAll('text').data(yt).join('text').attr('x',m.l-7).attr('y',d=>y(d)+4).attr('text-anchor','end').attr('fill','#9fb2cc').attr('font-size',11).text(d=>d===0?'Base':bnT(d));
-  svg.append('text').attr('transform',`translate(14,${(m.t+Hh-m.b)/2}) rotate(-90)`).attr('text-anchor','middle').attr('fill','#9fb2cc').attr('font-size',11).attr('font-weight',700).text(LS[S.ls].ax);
-  svg.append('line').attr('x1',m.l).attr('x2',W-m.r).attr('y1',y(0)).attr('y2',y(0)).attr('stroke','rgba(255,255,255,.45)');
+  svg.append('g').selectAll('line').data(yt).join('line').attr('x1',m.l).attr('x2',W-m.r).attr('y1',y).attr('y2',y).style('stroke','var(--line)');
+  svg.append('g').selectAll('text').data(yt).join('text').attr('x',m.l-7).attr('y',d=>y(d)+4).attr('text-anchor','end').style('fill','var(--muted)').attr('font-size',11).text(d=>d===0?'Base':bnT(d));
+  svg.append('text').attr('transform',`translate(14,${(m.t+Hh-m.b)/2}) rotate(-90)`).attr('text-anchor','middle').style('fill','var(--muted)').attr('font-size',11).attr('font-weight',700).text(LS[S.ls].ax);
+  svg.append('line').attr('x1',m.l).attr('x2',W-m.r).attr('y1',y(0)).attr('y2',y(0)).style('stroke','var(--muted)');
   steps.forEach((s,i)=>{
     const top=y(Math.max(s.y0,s.y1)),h=Math.max(2,Math.abs(y(s.y0)-y(s.y1)));
-    svg.append('rect').attr('x',x(s.k)).attr('y',top).attr('width',x.bandwidth()).attr('height',h).attr('rx',3).attr('fill',s.col).attr('opacity',i===3?.92:1);
+    svg.append('rect').attr('x',x(s.k)).attr('y',top).attr('width',x.bandwidth()).attr('height',h).attr('rx',3).style('fill',s.col==='NET'?'var(--ink)':s.col).attr('opacity',i===3?.92:1);
     const v=s.y1-s.y0, val=i===3?s.y1:v;
-    svg.append('text').attr('x',x(s.k)+x.bandwidth()/2).attr('y',val>=0?top-7:top+h+15).attr('text-anchor','middle').attr('fill','#fff').attr('font-size',12.5).attr('font-weight',800).text((i>0&&i<3&&val>=0?'+':'')+bn(val));
-    if(i<2){const nx=x(steps[i+1].k);svg.append('line').attr('x1',x(s.k)+x.bandwidth()).attr('x2',nx).attr('y1',y(s.y1)).attr('y2',y(s.y1)).attr('stroke','rgba(255,255,255,.45)').attr('stroke-dasharray','3 3')}
-    svg.append('text').attr('x',x(s.k)+x.bandwidth()/2).attr('y',Hh-m.b+18).attr('text-anchor','middle').attr('fill','#e9eef6').attr('font-size',12).attr('font-weight',700).text(s.k);
-    svg.append('text').attr('x',x(s.k)+x.bandwidth()/2).attr('y',Hh-m.b+33).attr('text-anchor','middle').attr('fill','#9fb2cc').attr('font-size',11).text(s.k2);
+    svg.append('text').attr('x',x(s.k)+x.bandwidth()/2).attr('y',val>=0?top-7:top+h+15).attr('text-anchor','middle').style('fill','var(--ink)').attr('font-size',12.5).attr('font-weight',800).text((i>0&&i<3&&val>=0?'+':'')+bn(val));
+    if(i<2){const nx=x(steps[i+1].k);svg.append('line').attr('x1',x(s.k)+x.bandwidth()).attr('x2',nx).attr('y1',y(s.y1)).attr('y2',y(s.y1)).style('stroke','var(--muted)').attr('stroke-dasharray','3 3')}
+    svg.append('text').attr('x',x(s.k)+x.bandwidth()/2).attr('y',Hh-m.b+18).attr('text-anchor','middle').style('fill','var(--ink)').attr('font-size',12).attr('font-weight',700).text(s.k);
+    svg.append('text').attr('x',x(s.k)+x.bandwidth()/2).attr('y',Hh-m.b+33).attr('text-anchor','middle').style('fill','var(--muted)').attr('font-size',10).text(s.k2);
   });
   const brk=(k1,k2,label,col)=>{const x1=x(k1),x2=x(k2)+x.bandwidth(),yy=m.t-26;
     svg.append('path').attr('d',`M${x1},${yy+8}V${yy}H${x2}V${yy+8}`).attr('fill','none').attr('stroke',col).attr('stroke-width',1.5);
     svg.append('text').attr('x',(x1+x2)/2).attr('y',yy-7).attr('text-anchor','middle').attr('fill',col).attr('font-size',12).attr('font-weight',800).text(label)};
-  brk('First round','First round','What standard analysis shows',C.orange);
+  brk('First round','First round','Standard analysis',C.orange);
   brk('Second round','Third round','What this model adds','#00A787');
 }
 function render(){
